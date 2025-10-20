@@ -1,0 +1,148 @@
+.symbol-stats {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 8px;
+  border: 1px solid #444;
+  padding: 12px;
+  margin-top: 12px;
+  box-shadow: 
+    inset 0 1px 3px rgba(0, 0, 0, 0.3),
+    0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.symbol-stats-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #444;
+}
+
+.symbol-stats-icon {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.symbol-stats-title {
+  font-size: 0.9rem;
+  color: #ccc;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.symbol-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
+
+.symbol-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border-radius: 6px;
+  border: 1px solid #555;
+  transition: all 0.2s ease;
+  min-height: 40px;
+}
+
+.symbol-stat-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-color: #666;
+}
+
+.symbol-emoji {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  min-width: 24px;
+  text-align: center;
+}
+
+.symbol-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.symbol-name {
+  font-size: 0.75rem;
+  color: #aaa;
+  text-transform: capitalize;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.symbol-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 4px;
+}
+
+.symbol-value {
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #4CAF50;
+  text-shadow: 0 1px 2px rgba(76, 175, 80, 0.3);
+}
+
+.symbol-chance {
+  font-size: 0.75rem;
+  color: #FFC107;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(255, 193, 7, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .symbol-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  
+  .symbol-stat-item {
+    padding: 5px 6px;
+    min-height: 36px;
+  }
+  
+  .symbol-emoji {
+    font-size: 1.1rem;
+    min-width: 20px;
+  }
+  
+  .symbol-name {
+    font-size: 0.7rem;
+  }
+  
+  .symbol-value {
+    font-size: 0.75rem;
+  }
+  
+  .symbol-chance {
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .symbol-stats {
+    padding: 8px;
+    margin-top: 8px;
+  }
+  
+  .symbol-stats-header {
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+  }
+  
+  .symbol-stats-title {
+    font-size: 0.8rem;
+  }
+}

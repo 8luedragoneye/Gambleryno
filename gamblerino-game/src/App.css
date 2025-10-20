@@ -1,0 +1,365 @@
+/* Main App Styles */
+.App {
+  text-align: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.App-header {
+  padding: 20px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-bottom: 2px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.App-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.App-header p {
+  margin: 10px 0 0 0;
+  font-size: 1.1rem;
+  color: #ccc;
+  font-style: italic;
+}
+
+.App-main {
+  width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 1400px;
+}
+
+/* Game Layout - Three Column */
+.game-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+  gap: 20px;
+  min-height: 70vh;
+  align-items: start;
+}
+
+/* Sidebars */
+.left-sidebar,
+.right-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: sticky;
+  top: 20px;
+}
+
+/* Center Area */
+.center-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  min-width: 0; /* Prevents grid overflow */
+}
+
+.game-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  max-width: 400px;
+}
+
+.open-shop-button {
+  background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+  min-width: 200px;
+}
+
+.open-shop-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.open-shop-button:disabled {
+  background: linear-gradient(145deg, #666, #555);
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Spin Result */
+.spin-result {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px;
+  padding: 20px;
+  border: 2px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 100%;
+}
+
+.matches h3 {
+  margin: 0 0 15px 0;
+  color: #4ecdc4;
+  font-size: 1.3rem;
+}
+
+.match {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  margin: 5px 0;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border-radius: 6px;
+  border: 1px solid #555;
+}
+
+.match span:first-child {
+  color: #ccc;
+  font-weight: 500;
+}
+
+.match span:last-child {
+  color: #4ecdc4;
+  font-weight: bold;
+}
+
+.total-payout {
+  margin-top: 15px;
+  padding: 12px;
+  background: linear-gradient(145deg, #4a3a2a, #3a2a1a);
+  border-radius: 8px;
+  border: 2px solid #ffd700;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ffd700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.special-sequence {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.special-sequence.666 {
+  background: linear-gradient(145deg, #4a2a2a, #3a1a1a);
+  border: 2px solid #ff4444;
+  color: #ff6666;
+}
+
+.special-sequence.999 {
+  background: linear-gradient(145deg, #2a4a2a, #1a3a1a);
+  border: 2px solid #44ff44;
+  color: #66ff66;
+}
+
+/* Shop Area */
+.shop-area {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px;
+  padding: 30px;
+  border: 2px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.shop-area h2 {
+  margin: 0 0 20px 0;
+  color: #4ecdc4;
+  font-size: 1.8rem;
+}
+
+.shop-area p {
+  margin: 10px 0;
+  font-size: 1.1rem;
+  color: #ccc;
+}
+
+.pay-debt-button,
+.shop-button {
+  background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin: 10px;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.pay-debt-button:hover:not(:disabled),
+.shop-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+.pay-debt-button:disabled {
+  background: linear-gradient(145deg, #666, #555);
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shop-button {
+  background: linear-gradient(145deg, #4ecdc4, #44a08d);
+  box-shadow: 0 4px 15px rgba(78, 205, 196, 0.4);
+}
+
+.shop-button:hover {
+  box-shadow: 0 6px 20px rgba(78, 205, 196, 0.6);
+}
+
+.continue-button {
+  background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.continue-button:hover {
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+/* Game Over */
+.game-over {
+  background: linear-gradient(145deg, #4a2a2a, #3a1a1a);
+  border-radius: 12px;
+  padding: 40px;
+  border: 2px solid #ff4444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.game-over h2 {
+  margin: 0 0 20px 0;
+  color: #ff6666;
+  font-size: 2rem;
+}
+
+.game-over p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+  color: #ff9999;
+}
+
+.game-over button {
+  background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+}
+
+.game-over button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .game-layout {
+    grid-template-columns: 250px 1fr 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .App-header h1 {
+    font-size: 2rem;
+  }
+  
+  .App-main {
+    padding: 15px;
+  }
+  
+  .game-layout {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .left-sidebar,
+  .right-sidebar {
+    position: static;
+    order: 2;
+  }
+  
+  .center-area {
+    order: 1;
+  }
+  
+  .spin-result {
+    padding: 15px;
+  }
+  
+  .shop-area {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .App-header {
+    padding: 15px;
+  }
+  
+  .App-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .App-header p {
+    font-size: 1rem;
+  }
+  
+  .App-main {
+    padding: 10px;
+  }
+  
+  .match {
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+  }
+  
+  .pay-debt-button,
+  .shop-button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .game-controls {
+    gap: 12px;
+  }
+  
+  .open-shop-button {
+    min-width: 160px;
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}

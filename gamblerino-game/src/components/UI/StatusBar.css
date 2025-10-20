@@ -1,0 +1,123 @@
+.status-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px;
+  border: 2px solid #444;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.3),
+    0 4px 8px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  max-width: 280px;
+}
+
+.status-section {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border-radius: 8px;
+  border: 1px solid #555;
+  min-width: 120px;
+  transition: all 0.3s ease;
+}
+
+.status-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.status-icon {
+  font-size: 1.2rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.status-label {
+  font-size: 0.9rem;
+  color: #ccc;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-value {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  margin-left: auto;
+}
+
+.status-value.debt {
+  color: #ff6b6b;
+  text-shadow: 0 1px 2px rgba(255, 107, 107, 0.3);
+}
+
+.deadline-section {
+  border-top: 1px solid #444;
+  padding-top: 12px;
+  margin-top: 8px;
+}
+
+.deadline-item {
+  background: linear-gradient(145deg, #4a2a2a, #3a1a1a);
+  border-color: #ff6b6b;
+  min-width: 200px;
+}
+
+.deadline-item .status-icon {
+  color: #ff6b6b;
+}
+
+.deadline-item .status-label {
+  color: #ff9999;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .status-bar {
+    padding: 12px;
+    max-width: 100%;
+  }
+  
+  .status-section {
+    gap: 8px;
+  }
+  
+  .status-item {
+    min-width: 100px;
+    padding: 6px 10px;
+  }
+  
+  .status-label {
+    font-size: 0.8rem;
+  }
+  
+  .status-value {
+    font-size: 1rem;
+  }
+  
+  .deadline-item {
+    min-width: 150px;
+  }
+}
+
+@media (max-width: 480px) {
+  .status-section {
+    flex-direction: column;
+  }
+  
+  .status-item {
+    min-width: auto;
+    width: 100%;
+  }
+}

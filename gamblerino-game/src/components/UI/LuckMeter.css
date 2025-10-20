@@ -1,0 +1,175 @@
+.luck-meter {
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-radius: 12px;
+  padding: 16px;
+  border: 2px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+}
+
+.luck-meter.spinning {
+  animation: luckPulse 0.5s ease-in-out infinite alternate;
+}
+
+@keyframes luckPulse {
+  from {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  }
+  to {
+    box-shadow: 0 8px 16px rgba(78, 205, 196, 0.4);
+  }
+}
+
+.luck-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.luck-icon {
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+}
+
+.luck-label {
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #ccc;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.luck-value {
+  font-size: 1.3rem;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.luck-bar-container {
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border-radius: 8px;
+  height: 8px;
+  overflow: hidden;
+  border: 1px solid #555;
+  margin-bottom: 12px;
+}
+
+.luck-bar {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.3s ease;
+  background: linear-gradient(90deg, currentColor, rgba(255, 255, 255, 0.3));
+  box-shadow: 0 0 8px currentColor;
+}
+
+.luck-effects {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.luck-effect {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.luck-effect.guaranteed {
+  background: linear-gradient(145deg, #2a4a2a, #1a3a1a);
+  border: 1px solid #10b981;
+  color: #10b981;
+}
+
+.luck-effect.jackpot {
+  background: linear-gradient(145deg, #4a3a2a, #3a2a1a);
+  border: 1px solid #ffd700;
+  color: #ffd700;
+  animation: jackpotGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes jackpotGlow {
+  from {
+    box-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+  }
+  to {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.8);
+  }
+}
+
+.luck-effect.sources {
+  background: linear-gradient(145deg, #3a2a4a, #2a1a3a);
+  border: 1px solid #8b5cf6;
+  color: #8b5cf6;
+}
+
+.effect-icon {
+  font-size: 1rem;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+}
+
+.effect-text {
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Luck meter base styling - no level-specific styles */
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .luck-meter {
+    padding: 12px;
+    margin-bottom: 12px;
+  }
+  
+  .luck-header {
+    margin-bottom: 8px;
+  }
+  
+  .luck-icon {
+    font-size: 1.3rem;
+  }
+  
+  .luck-label {
+    font-size: 1rem;
+  }
+  
+  .luck-value {
+    font-size: 1.1rem;
+  }
+  
+  .luck-bar-container {
+    height: 6px;
+    margin-bottom: 8px;
+  }
+  
+  .luck-effect {
+    font-size: 0.7rem;
+    padding: 3px 6px;
+  }
+}
+
+@media (max-width: 480px) {
+  .luck-meter {
+    padding: 10px;
+  }
+  
+  .luck-header {
+    flex-direction: column;
+    gap: 4px;
+    text-align: center;
+  }
+  
+  .luck-effects {
+    gap: 4px;
+  }
+  
+  .luck-effect {
+    justify-content: center;
+    text-align: center;
+  }
+}

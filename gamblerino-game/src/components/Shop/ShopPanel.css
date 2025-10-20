@@ -1,0 +1,226 @@
+.shop-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.shop-panel > * {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.shop-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-bottom: 2px solid #444;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shop-header h2 {
+  margin: 0;
+  color: #4ecdc4;
+  font-size: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.close-button {
+  background: linear-gradient(145deg, #ff6b6b, #ee5a52);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(255, 107, 107, 0.3);
+}
+
+.close-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(255, 107, 107, 0.5);
+}
+
+.shop-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  border-bottom: 1px solid #555;
+}
+
+.shop-currency {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.tickets {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #4ecdc4;
+  background: linear-gradient(145deg, #2a3a3a, #1a2a2a);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #4ecdc4;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.shop-slots {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.slots {
+  font-size: 1rem;
+  color: #ccc;
+  background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: 1px solid #555;
+}
+
+.shop-actions {
+  padding: 16px 20px;
+  background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+  border-bottom: 1px solid #555;
+  display: flex;
+  justify-content: center;
+}
+
+.restock-button {
+  background: linear-gradient(145deg, #8b5cf6, #7c3aed);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  box-shadow: 0 4px 15px rgba(139, 92, 246, 0.4);
+}
+
+.restock-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.6);
+}
+
+.restock-button:disabled {
+  background: linear-gradient(145deg, #666, #555);
+  cursor: not-allowed;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.shop-inventory,
+.owned-charms {
+  padding: 20px;
+  background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+}
+
+.shop-inventory h3,
+.owned-charms h3 {
+  margin: 0 0 16px 0;
+  color: #4ecdc4;
+  font-size: 1.5rem;
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.charm-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .charm-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .shop-header {
+    padding: 15px;
+  }
+  
+  .shop-header h2 {
+    font-size: 1.5rem;
+  }
+  
+  .shop-info {
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px 15px;
+  }
+  
+  .shop-actions {
+    padding: 12px 15px;
+  }
+  
+  .shop-inventory,
+  .owned-charms {
+    padding: 15px;
+  }
+  
+  .charm-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shop-header {
+    padding: 10px;
+  }
+  
+  .shop-header h2 {
+    font-size: 1.3rem;
+  }
+  
+  .close-button {
+    width: 35px;
+    height: 35px;
+    font-size: 1rem;
+  }
+  
+  .shop-info {
+    padding: 10px;
+  }
+  
+  .tickets,
+  .slots {
+    font-size: 0.9rem;
+    padding: 6px 12px;
+  }
+  
+  .restock-button {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .shop-inventory,
+  .owned-charms {
+    padding: 10px;
+  }
+  
+  .charm-grid {
+    gap: 8px;
+  }
+}
