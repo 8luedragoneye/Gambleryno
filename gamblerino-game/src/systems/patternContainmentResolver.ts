@@ -1,5 +1,5 @@
 // Pattern containment resolver to prevent double-counting contained patterns
-import { PatternMatch } from './patternTemplates';
+import { PatternMatch } from '../data/patterns';
 
 export interface ContainmentAnalysis {
   pattern: PatternMatch;
@@ -25,9 +25,9 @@ export class PatternContainmentResolver {
     for (const analysis of containmentAnalysis) {
       if (!analysis.isContained) {
         resolvedMatches.push(analysis.pattern);
-        console.log(`  ✅ KEPT: ${analysis.pattern.template.name} (${analysis.pattern.template.type})`);
+        console.log(`  ✅ KEPT: ${analysis.pattern.pattern.name} (${analysis.pattern.pattern.type})`);
       } else {
-        console.log(`  ❌ REMOVED: ${analysis.pattern.template.name} (contained in ${analysis.containedBy.map(p => p.template.name).join(', ')})`);
+        console.log(`  ❌ REMOVED: ${analysis.pattern.pattern.name} (contained in ${analysis.containedBy.map(p => p.pattern.name).join(', ')})`);
       }
     }
 
@@ -89,11 +89,11 @@ export class PatternContainmentResolver {
         ...match,
         priority: this.calculatePriority(match)
       }))
-      .sort((a, b) => b.priority - a.priority);
+      .sort((a, b) => b.priority - a.priority) as (PatternMatch & { priority: number })[];
 
     console.log('  Sorted by priority:');
     sortedMatches.forEach((match, i) => {
-      console.log(`    ${i + 1}. ${match.template.name} (${match.template.type}, ${match.positions.length} symbols, priority: ${match.priority})`);
+      console.log(`    ${i + 1}. ${match.pattern.name} (${match.pattern.type}, ${match.positions.length} symbols, priority: ${match.priority})`);
     });
 
     const resolvedMatches: PatternMatch[] = [];
@@ -113,7 +113,7 @@ export class PatternContainmentResolver {
 
         if (containedPatterns.length > 0) {
           // This pattern contains others - remove the contained ones
-          console.log(`  🔄 REPLACING: ${match.template.name} replaces ${containedPatterns.map(p => p.template.name).join(', ')}`);
+          console.log(`  🔄 REPLACING: ${match.pattern.name} replaces ${containedPatterns.map(p => p.pattern.name).join(', ')}`);
           
           // Remove contained patterns from resolved matches
           containedPatterns.forEach(containedPattern => {
@@ -125,9 +125,9 @@ export class PatternContainmentResolver {
         }
 
         resolvedMatches.push(match);
-        console.log(`  ✅ ADDED: ${match.template.name} (${match.template.type})`);
+        console.log(`  ✅ ADDED: ${match.pattern.name} (${match.pattern.type})`);
       } else {
-        console.log(`  ❌ SKIPPED: ${match.template.name} (contained in existing pattern)`);
+        console.log(`  ❌ SKIPPED: ${match.pattern.name} (contained in existing pattern)`);
       }
     }
 
@@ -138,8 +138,8 @@ export class PatternContainmentResolver {
   // Calculate priority for a pattern
   private static calculatePriority(match: PatternMatch): number {
     const length = match.positions.length;
-    const type = match.template.type;
-    const multiplier = match.template.multiplier;
+    const type = match.pattern.type;
+    const multiplier = match.pattern.baseMultiplier || 1;
     
     // Base priority from type (geometric > diagonal > line)
     let priority = 0;

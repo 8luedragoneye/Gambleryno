@@ -127,69 +127,46 @@ export class PatternGenerator {
   private generateGeometricPatterns(gridSize: GridSize): DynamicPattern[] {
     const patterns: DynamicPattern[] = [];
     
-    // L-shapes (all possible sizes and orientations)
-    for (let size = 2; size <= Math.min(gridSize.rows, gridSize.cols) - 1; size++) {
-      for (let row = 0; row <= gridSize.rows - size - 1; row++) {
-        for (let col = 0; col <= gridSize.cols - size - 1; col++) {
-          // 4 orientations of L-shape
-          const orientations = [
-            // L pointing right-down
-            [[0,0], [0,1], [1,0]],
-            // L pointing down-left  
-            [[0,1], [1,1], [1,0]],
-            // L pointing left-up
-            [[1,1], [1,0], [0,1]],
-            // L pointing up-right
-            [[1,0], [0,0], [0,1]]
-          ];
-          
-          orientations.forEach((shape, i) => {
-            const positions = shape.map(([r, c]) => [row + r, col + c]);
-            if (this.isValidPattern(positions, gridSize)) {
-              patterns.push({
-                name: `L-${size}-${i}-${row}-${col}`,
-                positions,
-                baseMultiplier: this.calculateMultiplier(positions.length, 'geometric'),
-                difficulty: positions.length,
-                type: 'geometric',
-                rarity: this.calculateRarity(positions.length, Math.min(gridSize.rows, gridSize.cols)),
-                description: `L-shape pattern at (${row},${col})`
-              });
-            }
-          });
+    // L-shapes (all possible sizes and orientations) - now require 3x3 minimum
+    for (let size = 3; size <= Math.min(gridSize.rows, gridSize.cols); size++) {
+      for (let row = 0; row <= gridSize.rows - size; row++) {
+        for (let col = 0; col <= gridSize.cols - size; col++) {
+          // Only generate one L-shape per position (right-down orientation)
+          const shape = [[0,0], [0,1], [0,2], [1,0], [2,0]]; // L pointing right-down
+          const positions = shape.map(([r, c]) => [row + r, col + c]);
+          if (this.isValidPattern(positions, gridSize)) {
+            patterns.push({
+              name: `L-${size}-${row}-${col}`,
+              positions,
+              baseMultiplier: this.calculateMultiplier(positions.length, 'geometric'),
+              difficulty: positions.length,
+              type: 'geometric',
+              rarity: this.calculateRarity(positions.length, Math.min(gridSize.rows, gridSize.cols)),
+              description: `L-shape pattern at (${row},${col})`
+            });
+          }
         }
       }
     }
     
-    // T-shapes (only generate unique orientations)
-    for (let size = 2; size <= Math.min(gridSize.rows, gridSize.cols) - 1; size++) {
-      for (let row = 0; row <= gridSize.rows - size - 1; row++) {
-        for (let col = 0; col <= gridSize.cols - size - 1; col++) {
-          const tShapes = [
-            // T pointing up
-            [[0,1], [1,0], [1,1], [1,2], [2,1]],
-            // T pointing right
-            [[0,0], [0,1], [0,2], [1,1], [2,1]],
-            // T pointing down
-            [[2,1], [1,0], [1,1], [1,2], [0,1]],
-            // T pointing left
-            [[0,1], [1,2], [1,1], [1,0], [2,1]]
-          ];
-          
-          tShapes.forEach((shape, i) => {
-            const positions = shape.map(([r, c]) => [row + r, col + c]);
-            if (this.isValidPattern(positions, gridSize)) {
-              patterns.push({
-                name: `T-${size}-${i}-${row}-${col}`,
-                positions,
-                baseMultiplier: this.calculateMultiplier(positions.length, 'geometric'),
-                difficulty: positions.length,
-                type: 'geometric',
-                rarity: this.calculateRarity(positions.length, Math.min(gridSize.rows, gridSize.cols)),
-                description: `T-shape pattern at (${row},${col})`
-              });
-            }
-          });
+    // T-shapes (only generate unique orientations) - now require 3x3 minimum
+    for (let size = 3; size <= Math.min(gridSize.rows, gridSize.cols); size++) {
+      for (let row = 0; row <= gridSize.rows - size; row++) {
+        for (let col = 0; col <= gridSize.cols - size; col++) {
+          // Only generate one T-shape per position (up orientation)
+          const shape = [[0,1], [1,0], [1,1], [1,2], [2,1]]; // T pointing up
+          const positions = shape.map(([r, c]) => [row + r, col + c]);
+          if (this.isValidPattern(positions, gridSize)) {
+            patterns.push({
+              name: `T-${size}-${row}-${col}`,
+              positions,
+              baseMultiplier: this.calculateMultiplier(positions.length, 'geometric'),
+              difficulty: positions.length,
+              type: 'geometric',
+              rarity: this.calculateRarity(positions.length, Math.min(gridSize.rows, gridSize.cols)),
+              description: `T-shape pattern at (${row},${col})`
+            });
+          }
         }
       }
     }

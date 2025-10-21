@@ -79,50 +79,82 @@ export const PATTERN_TEMPLATES: PatternTemplate[] = [
     description: '3-symbol anti-diagonal'
   },
 
-  // L-Shapes
+  // L-Shapes (3-symbol lines required)
   {
     name: 'L-Shape Right-Down',
-    shape: [[0, 0], [0, 1], [1, 0]],
-    multiplier: 1.5,
+    shape: [[0, 0], [0, 1], [0, 2], [1, 0], [2, 0]],
+    multiplier: 2.0,
     type: 'geometric',
-    minSize: 2,
-    description: 'L-shape pointing right-down'
+    minSize: 3,
+    description: 'L-shape with 3-symbol horizontal and vertical lines'
   },
   {
     name: 'L-Shape Down-Left',
-    shape: [[0, 1], [1, 1], [1, 0]],
-    multiplier: 1.5,
-    type: 'geometric',
-    minSize: 2,
-    description: 'L-shape pointing down-left'
-  },
-
-  // T-Shapes
-  {
-    name: 'T-Shape Up',
-    shape: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+    shape: [[0, 2], [0, 1], [0, 0], [1, 2], [2, 2]],
     multiplier: 2.0,
     type: 'geometric',
     minSize: 3,
-    description: 'T-shape pointing up'
+    description: 'L-shape with 3-symbol horizontal and vertical lines'
+  },
+  {
+    name: 'L-Shape Left-Up',
+    shape: [[2, 0], [1, 0], [0, 0], [2, 1], [2, 2]],
+    multiplier: 2.0,
+    type: 'geometric',
+    minSize: 3,
+    description: 'L-shape with 3-symbol horizontal and vertical lines'
+  },
+  {
+    name: 'L-Shape Up-Right',
+    shape: [[2, 2], [1, 2], [0, 2], [2, 1], [2, 0]],
+    multiplier: 2.0,
+    type: 'geometric',
+    minSize: 3,
+    description: 'L-shape with 3-symbol horizontal and vertical lines'
+  },
+
+  // T-Shapes (3-symbol lines required)
+  {
+    name: 'T-Shape Up',
+    shape: [[0, 1], [0, 2], [0, 3], [1, 1], [2, 1], [3, 1]],
+    multiplier: 2.5,
+    type: 'geometric',
+    minSize: 4,
+    description: 'T-shape with 3-symbol horizontal and vertical lines'
   },
   {
     name: 'T-Shape Right',
-    shape: [[0, 0], [0, 1], [0, 2], [1, 1], [2, 1]],
-    multiplier: 2.0,
-    type: 'geometric',
-    minSize: 3,
-    description: 'T-shape pointing right'
-  },
-
-  // Cross Pattern
-  {
-    name: 'Cross',
-    shape: [[0, 1], [1, 0], [1, 1], [1, 2], [2, 1]],
+    shape: [[1, 0], [2, 0], [3, 0], [1, 1], [1, 2], [1, 3]],
     multiplier: 2.5,
     type: 'geometric',
+    minSize: 4,
+    description: 'T-shape with 3-symbol horizontal and vertical lines'
+  },
+  {
+    name: 'T-Shape Down',
+    shape: [[3, 1], [3, 2], [3, 3], [2, 1], [1, 1], [0, 1]],
+    multiplier: 2.5,
+    type: 'geometric',
+    minSize: 4,
+    description: 'T-shape with 3-symbol horizontal and vertical lines'
+  },
+  {
+    name: 'T-Shape Left',
+    shape: [[1, 3], [2, 3], [3, 3], [1, 2], [1, 1], [1, 0]],
+    multiplier: 2.5,
+    type: 'geometric',
+    minSize: 4,
+    description: 'T-shape with 3-symbol horizontal and vertical lines'
+  },
+
+  // Cross Pattern (3-symbol lines required)
+  {
+    name: 'Cross',
+    shape: [[0, 1], [1, 1], [2, 1], [1, 0], [1, 2]],
+    multiplier: 3.0,
+    type: 'geometric',
     minSize: 3,
-    description: 'Cross pattern'
+    description: 'Cross pattern with 3-symbol horizontal and vertical lines'
   }
 ];
 

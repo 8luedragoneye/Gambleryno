@@ -106,7 +106,7 @@ export const checkPattern = (grid: string[][], pattern: DynamicPattern): string 
 
 // Find all matching patterns in the grid using dynamic patterns
 export const findMatchingPatterns = (grid: string[][], patterns: DynamicPattern[]): PatternMatch[] => {
-  const matches: PatternMatch[] = [];
+  const allMatches: PatternMatch[] = [];
   
   for (const pattern of patterns) {
     const symbol = checkPattern(grid, pattern);
@@ -124,7 +124,7 @@ export const findMatchingPatterns = (grid: string[][], patterns: DynamicPattern[
       console.log(`    Rarity: ${pattern.rarity}`);
       console.log(`    Payout: ${payout}`);
       
-      matches.push({
+      allMatches.push({
         pattern,
         symbol,
         positions: pattern.positions,
@@ -133,9 +133,20 @@ export const findMatchingPatterns = (grid: string[][], patterns: DynamicPattern[
     }
   }
   
-  console.log(`🎯 Patterns Found: ${matches.length}`);
+  console.log(`🎯 All Patterns Found: ${allMatches.length}`);
   
-  return matches;
+  // Apply containment resolution to remove overlapping patterns
+  if (allMatches.length > 0) {
+    const { PatternContainmentResolver } = require('../systems/patternContainmentResolver');
+    const resolvedMatches = PatternContainmentResolver.getBestPatterns(allMatches);
+    
+    console.log(`🔧 After Containment Resolution: ${resolvedMatches.length} patterns`);
+    console.log(`💰 Resolved Payout: ${resolvedMatches.reduce((sum: number, m: any) => sum + m.payout, 0)} coins`);
+    
+    return resolvedMatches;
+  }
+  
+  return allMatches;
 };
 
 // Legacy function for backward compatibility
