@@ -1,7 +1,7 @@
 Phone Calls
 Random events at deadline starts offering choices.
 Description
-Types: Normal (buffs), Evil (mixed, from 666), Holy (buffs, from 999). Rarities affect options; pick one or more.
+Types: Normal (buffs), Evil (mixed), Holy (buffs). Rarities affect options; pick one or more.
 Key Components
 
 Types and Options: Lists of effects (e.g., +space, +multipliers, manifestations).

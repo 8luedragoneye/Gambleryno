@@ -268,6 +268,16 @@ export const findPatternMatches = (grid: string[][]): PatternMatch[] => {
   return detector.findMatches();
 };
 
+// Utility function to find matches with overlap resolution
+export const findPatternMatchesResolved = (grid: string[][]): PatternMatch[] => {
+  const detector = new PatternTemplateDetector(grid);
+  const allMatches = detector.findMatches();
+  
+  // Import the overlap resolver
+  const { resolvePatternOverlaps } = require('./patternOverlapResolver');
+  return resolvePatternOverlaps(allMatches);
+};
+
 // Utility function to calculate total payout
 export const calculateTotalPayout = (
   grid: string[][], 

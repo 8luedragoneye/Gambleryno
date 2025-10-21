@@ -223,17 +223,6 @@ export const CHARMS: Charm[] = [
   },
 
   // C-Tier Charms
-  {
-    id: 'holy_bible',
-    name: 'Holy Bible',
-    cost: 1,
-    rarity: 'common',
-    effect: 'Cancels one 666 trigger, then discards',
-    effectType: 'passive',
-    maxUses: 1,
-    description: 'One-use protection.',
-    tier: 'C'
-  },
 
   // Grid Size Modifying Charms
   {

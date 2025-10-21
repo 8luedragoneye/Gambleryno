@@ -205,19 +205,3 @@ export const calculateTotalPayout = (matches: PatternMatch[], symbolsMultiplier:
   return basePayout * symbolsMultiplier * patternsMultiplier;
 };
 
-// Check for special number sequences (666, 999)
-export const checkSpecialSequences = (grid: string[][]): '666' | '999' | null => {
-  const flatGrid = grid.flat();
-  
-  // Check for 666 (bad - resets coins)
-  if (flatGrid.filter(symbol => symbol === 'seven').length >= 3) {
-    return '666';
-  }
-  
-  // Check for 999 (good - doubles payouts)
-  if (flatGrid.filter(symbol => symbol === 'seven').length >= 6) {
-    return '999';
-  }
-  
-  return null;
-};

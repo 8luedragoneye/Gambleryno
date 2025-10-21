@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { getRandomSymbol } from '../data/symbols';
-import { findMatchingPatterns, calculateTotalPayout, checkSpecialSequences, createPatternSystem } from '../data/patterns';
+import { findMatchingPatterns, calculateTotalPayout, createPatternSystem } from '../data/patterns';
 import { LuckSystem } from '../systems/luckSystem';
 import { GridSize, DynamicPattern } from '../systems/patternGenerator';
 
@@ -20,7 +20,6 @@ export interface SpinResult {
   grid: string[][];
   matches: any[];
   totalPayout: number;
-  specialSequence: string | null;
   newCoins: number;
 }
 
@@ -112,27 +111,13 @@ export const useSlotMachine = (initialSpins: number = 5, initialGridSize: GridSi
     );
     console.log('  Total Payout:', totalPayout);
     
-    // Check for special sequences
-    const specialSequence = checkSpecialSequences(newGrid);
-    console.log('  Special Sequence:', specialSequence);
-    
     // Calculate new coin total
-    let newCoins = state.coins + totalPayout;
-    
-    // Apply special sequence effects
-    if (specialSequence === '666') {
-      newCoins = 0; // Reset coins
-      console.log('  666 Effect: Coins reset to 0');
-    } else if (specialSequence === '999') {
-      newCoins = state.coins + (totalPayout * 2); // Double payout
-      console.log('  999 Effect: Payout doubled');
-    }
+    const newCoins = state.coins + totalPayout;
 
     const result: SpinResult = {
       grid: newGrid,
       matches,
       totalPayout,
-      specialSequence,
       newCoins
     };
 

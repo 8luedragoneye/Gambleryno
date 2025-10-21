@@ -351,16 +351,6 @@ function App() {
                     </div>
                   )}
                   
-                  {lastSpinResult.specialSequence && (
-                    <div className={`special-sequence ${lastSpinResult.specialSequence}`}>
-                      {lastSpinResult.specialSequence === '666' && (
-                        <div>😈 666 - All coins reset!</div>
-                      )}
-                      {lastSpinResult.specialSequence === '999' && (
-                        <div>😇 999 - Double payout!</div>
-                      )}
-                    </div>
-                  )}
                 </div>
               )}
             </div>

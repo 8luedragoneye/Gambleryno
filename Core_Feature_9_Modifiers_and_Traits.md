@@ -1,7 +1,7 @@
 Modifiers and Traits
 Traits enhance charms with extra effects.
 Description
-Randomly applied to charms (probabilities); types like Florid (+coins), Avid (+multiplier), Devious (+666 chance). From phone calls or random.
+Randomly applied to charms (probabilities); types like Florid (+coins), Avid (+multiplier), Devious (special effects). From phone calls or random.
 Key Components
 
 Trait List: Name, effect, probability (regular/forced).

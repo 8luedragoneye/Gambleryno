@@ -99,9 +99,6 @@ src/
 - **Columns**: Left, middle, right
 - **Diagonals**: Main and anti-diagonal (1.5x multiplier)
 
-### Special Sequences
-- **666**: Resets all coins (bad)
-- **999**: Doubles all payouts (good)
 
 ## 🛠️ Development
 

@@ -23,7 +23,7 @@ Interest: Accrues on banked coins, providing bonuses; can be boosted by charms.
 Luck: Influences guaranteed symbol matches; built from charms and spontaneous systems.
 Energy: Used for activating red-button charms.
 Multipliers: Symbols Multiplier and Patterns Multiplier scale payouts exponentially.
-Special Events: 666 (resets coins, bad), 999 (doubles payouts, good), phone calls (random effects).
+Special Events: Phone calls (random effects).
 Modifiers (Traits): Applied to charms for extra effects like bonuses or penalties.
 
 The game features over 100 Lucky Charms with deep synergies, an endless mode for high scores post certain deadlines, and unlockable content. Runs can snowball into massive payouts, but early management is key to survival.
