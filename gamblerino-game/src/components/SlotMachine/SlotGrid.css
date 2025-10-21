@@ -1,7 +1,7 @@
 .slot-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(3, 1fr);
+  /* Remove fixed grid-template-columns/rows */
+  /* Let JavaScript handle dynamic sizing */
   gap: 8px;
   padding: 16px;
   background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
@@ -11,9 +11,9 @@
     inset 0 2px 4px rgba(0, 0, 0, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.5);
   width: 100%;
-  max-width: 400px;
+  max-width: 600px; /* Increased to accommodate larger grids */
   margin: 0 auto;
-  aspect-ratio: 1;
+  /* Remove fixed aspect-ratio for dynamic grids */
 }
 
 .slot-row {
@@ -32,6 +32,8 @@
   transition: all 0.3s ease;
   position: relative;
   overflow: hidden;
+  min-width: 60px; /* Ensure cells scale properly */
+  min-height: 60px; /* Ensure cells scale properly */
 }
 
 .slot-cell:hover {

@@ -2,10 +2,11 @@ import { Charm, getCharmById } from '../data/charms';
 import { random } from '../utils/random';
 
 export interface CharmEffect {
-  type: 'spins' | 'luck' | 'multiplier' | 'interest' | 'tickets' | 'trigger' | 'pattern_boost';
+  type: 'spins' | 'luck' | 'multiplier' | 'interest' | 'tickets' | 'trigger' | 'pattern_boost' | 'grid_size';
   value: number;
   condition?: string;
   probability?: number;
+  gridSizeModifier?: { rows: number; cols: number };
 }
 
 export interface ActiveCharm {
@@ -105,6 +106,15 @@ export class CharmSystem {
   // Get passive effects
   private getPassiveEffect(charm: Charm, event: string): CharmEffect | null {
     const effect = charm.effect.toLowerCase();
+    
+    // Grid size effects
+    if (charm.gridSizeModifier && event === 'equip') {
+      return { 
+        type: 'grid_size', 
+        value: 1, 
+        gridSizeModifier: charm.gridSizeModifier 
+      };
+    }
     
     // Spins effects
     if (effect.includes('+2 spins every round') && event === 'round_start') {
@@ -278,6 +288,12 @@ export class CharmSystem {
         case 'pattern_boost':
           if (effect.condition === '4+_patterns') {
             result.patternMultiplier = (result.patternMultiplier || 1) * effect.value;
+          }
+          break;
+        
+        case 'grid_size':
+          if (effect.gridSizeModifier) {
+            result.gridSizeModifier = effect.gridSizeModifier;
           }
           break;
       }

@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { calculations } from '../utils/calculations';
+import { GridSize, GridSizeModifier } from '../systems/patternGenerator';
 
 export interface GameState {
   currentDeadline: number;
@@ -11,6 +12,8 @@ export interface GameState {
   maxCharmSlots: number;
   equippedCharms: string[];
   gamePhase: 'playing' | 'shop' | 'phone_call' | 'game_over' | 'victory';
+  gridSize: GridSize;
+  gridSizeModifiers: GridSizeModifier[];
 }
 
 export const useGameState = () => {
@@ -23,7 +26,9 @@ export const useGameState = () => {
     charmSlots: 3,
     maxCharmSlots: 3,
     equippedCharms: [],
-    gamePhase: 'playing'
+    gamePhase: 'playing',
+    gridSize: { rows: 3, cols: 3 },
+    gridSizeModifiers: []
   });
 
   // Advance to next deadline
@@ -139,6 +144,51 @@ export const useGameState = () => {
     }));
   }, []);
 
+  // Update grid size
+  const updateGridSize = useCallback((newGridSize: GridSize) => {
+    setState(prev => ({
+      ...prev,
+      gridSize: newGridSize
+    }));
+  }, []);
+
+  // Apply grid size modifier
+  const applyGridSizeModifier = useCallback((modifier: GridSizeModifier) => {
+    setState(prev => {
+      const newModifiers = [...prev.gridSizeModifiers, modifier];
+      const newRows = Math.max(1, prev.gridSize.rows + modifier.rows);
+      const newCols = Math.max(1, prev.gridSize.cols + modifier.cols);
+      
+      return {
+        ...prev,
+        gridSize: { rows: newRows, cols: newCols },
+        gridSizeModifiers: newModifiers
+      };
+    });
+  }, []);
+
+  // Remove grid size modifier
+  const removeGridSizeModifier = useCallback((source: string) => {
+    setState(prev => {
+      const newModifiers = prev.gridSizeModifiers.filter(mod => mod.source !== source);
+      
+      // Recalculate grid size without the removed modifier
+      let newRows = 3; // Base size
+      let newCols = 3; // Base size
+      
+      newModifiers.forEach(mod => {
+        newRows = Math.max(1, newRows + mod.rows);
+        newCols = Math.max(1, newCols + mod.cols);
+      });
+      
+      return {
+        ...prev,
+        gridSize: { rows: newRows, cols: newCols },
+        gridSizeModifiers: newModifiers
+      };
+    });
+  }, []);
+
   // Reset game
   const resetGame = useCallback(() => {
     setState({
@@ -150,7 +200,9 @@ export const useGameState = () => {
       charmSlots: 3,
       maxCharmSlots: 3,
       equippedCharms: [],
-      gamePhase: 'playing'
+      gamePhase: 'playing',
+      gridSize: { rows: 3, cols: 3 },
+      gridSizeModifiers: []
     });
   }, []);
 
@@ -167,6 +219,9 @@ export const useGameState = () => {
     setGamePhase,
     gameOver,
     victory,
-    resetGame
+    resetGame,
+    updateGridSize,
+    applyGridSizeModifier,
+    removeGridSizeModifier
   };
 };

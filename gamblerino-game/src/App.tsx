@@ -4,6 +4,9 @@ import { useGameState } from './hooks/useGameState';
 import { useCharms } from './hooks/useCharms';
 import { useLuck } from './hooks/useLuck';
 import { usePhoneCalls } from './hooks/usePhoneCalls';
+import { useGridSize } from './hooks/useGridSize';
+import { GridSize } from './systems/patternGenerator';
+import { analyzePatterns, testWinningGrid, testMixedGrid } from './utils/patternAnalysis';
 import SlotGrid from './components/SlotMachine/SlotGrid';
 import SpinButton from './components/SlotMachine/SpinButton';
 import StatusBar from './components/UI/StatusBar';
@@ -14,8 +17,16 @@ import PhoneCallModal from './components/PhoneCalls/PhoneCallModal';
 import './App.css';
 
 function App() {
-  const { state: slotState, spin, resetSpins, addSpins, updateMultipliers, updateLuck, addCoins } = useSlotMachine(5);
-  const { state: gameState, payDebt, advanceDeadline, setGamePhase, addTickets, spendTickets } = useGameState();
+  // Initialize grid size management
+  const { 
+    state: gridSizeState, 
+    updateGridSize, 
+    applyGridSizeModifier, 
+    getCurrentGridSize 
+  } = useGridSize({ rows: 3, cols: 3 });
+  
+  const { state: slotState, spin, resetSpins, addSpins, updateMultipliers, updateLuck, addCoins, updateGridSize: updateSlotGridSize } = useSlotMachine(5, gridSizeState);
+  const { state: gameState, payDebt, advanceDeadline, setGamePhase, addTickets, spendTickets, updateGridSize: updateGameGridSize } = useGameState();
   const { 
     equipCharm, 
     unequipCharm, 
@@ -143,11 +154,34 @@ function App() {
 
 
   const handleEquipCharm = (charmId: string) => {
-    return equipCharm(charmId);
+    const success = equipCharm(charmId);
+    
+    // Check if charm has grid size modifier
+    if (success) {
+      const charmEffects = processCharmEffects('equip', {});
+      
+      if (charmEffects.gridSizeModifier) {
+        const newGridSize = {
+          rows: Math.max(1, gridSizeState.rows + charmEffects.gridSizeModifier.rows),
+          cols: Math.max(1, gridSizeState.cols + charmEffects.gridSizeModifier.cols)
+        };
+        
+        updateGridSize(newGridSize);
+        updateSlotGridSize(newGridSize);
+        updateGameGridSize(newGridSize);
+      }
+    }
+    
+    return success;
   };
 
   const handleUnequipCharm = (charmId: string) => {
     unequipCharm(charmId);
+    
+    // Recalculate grid size after unequipping charm
+    const currentGridSize = getCurrentGridSize();
+    updateSlotGridSize(currentGridSize);
+    updateGameGridSize(currentGridSize);
   };
 
   const handleRestock = (cost: number) => {
@@ -265,6 +299,7 @@ function App() {
                 grid={slotState.grid}
                 isSpinning={slotState.isSpinning}
                 winningPositions={winningPositions}
+                gridSize={slotState.gridSize}
               />
               
               <div className="game-controls">
@@ -280,6 +315,22 @@ function App() {
                   disabled={gameState.tickets === 0}
                 >
                   🛒 Shop ({gameState.tickets} tickets)
+                </button>
+                
+                <button 
+                  className="test-patterns-button"
+                  onClick={() => analyzePatterns(slotState.gridSize, slotState.grid)}
+                  style={{ marginLeft: '10px', padding: '8px 12px', fontSize: '12px' }}
+                >
+                  🔍 Analyze Patterns
+                </button>
+                
+                <button 
+                  className="test-winning-button"
+                  onClick={() => testWinningGrid(slotState.gridSize)}
+                  style={{ marginLeft: '5px', padding: '8px 12px', fontSize: '12px' }}
+                >
+                  🎰 Test Winning
                 </button>
               </div>
 

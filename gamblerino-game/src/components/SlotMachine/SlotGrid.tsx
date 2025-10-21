@@ -1,24 +1,36 @@
 import React from 'react';
 import { getSymbolByName } from '../../data/symbols';
+import { GridSize } from '../../systems/patternGenerator';
 import './SlotGrid.css';
 
 interface SlotGridProps {
   grid: string[][];
   isSpinning?: boolean;
   winningPositions?: number[][];
+  gridSize: GridSize;
 }
 
 const SlotGrid: React.FC<SlotGridProps> = ({ 
   grid, 
   isSpinning = false, 
-  winningPositions = [] 
+  winningPositions = [],
+  gridSize
 }) => {
   const isWinningPosition = (row: number, col: number): boolean => {
     return winningPositions.some(([r, c]) => r === row && c === col);
   };
 
+  // Dynamic grid styling based on grid size
+  const gridStyle = {
+    gridTemplateColumns: `repeat(${gridSize.cols}, 1fr)`,
+    gridTemplateRows: `repeat(${gridSize.rows}, 1fr)`
+  };
+
   return (
-    <div className={`slot-grid ${isSpinning ? 'spinning' : ''}`}>
+    <div 
+      className={`slot-grid ${isSpinning ? 'spinning' : ''}`}
+      style={gridStyle}
+    >
       {grid.map((row, rowIndex) => (
         <div key={rowIndex} className="slot-row">
           {row.map((symbolName, colIndex) => {
@@ -31,7 +43,7 @@ const SlotGrid: React.FC<SlotGridProps> = ({
                 className={`slot-cell ${isWinning ? 'winning' : ''} ${isSpinning ? 'spinning' : ''}`}
                 style={{
                   backgroundColor: symbol?.color || '#333',
-                  animationDelay: `${(rowIndex * 3 + colIndex) * 0.1}s`
+                  animationDelay: `${(rowIndex * gridSize.cols + colIndex) * 0.1}s`
                 }}
               >
                 <span className="symbol-emoji">

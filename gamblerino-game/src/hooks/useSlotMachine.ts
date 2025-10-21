@@ -1,7 +1,8 @@
 import { useState, useCallback } from 'react';
 import { getRandomSymbol } from '../data/symbols';
-import { findMatchingPatterns, calculateTotalPayout, checkSpecialSequences } from '../data/patterns';
+import { findMatchingPatterns, calculateTotalPayout, checkSpecialSequences, createPatternSystem } from '../data/patterns';
 import { LuckSystem } from '../systems/luckSystem';
+import { GridSize, DynamicPattern } from '../systems/patternGenerator';
 
 export interface SlotMachineState {
   grid: string[][];
@@ -11,6 +12,8 @@ export interface SlotMachineState {
   symbolsMultiplier: number;
   patternsMultiplier: number;
   isSpinning: boolean;
+  gridSize: GridSize;
+  availablePatterns: DynamicPattern[];
 }
 
 export interface SpinResult {
@@ -21,28 +24,31 @@ export interface SpinResult {
   newCoins: number;
 }
 
-export const useSlotMachine = (initialSpins: number = 5) => {
+export const useSlotMachine = (initialSpins: number = 5, initialGridSize: GridSize = { rows: 3, cols: 3 }) => {
   const [state, setState] = useState<SlotMachineState>({
-    grid: Array(3).fill(null).map(() => Array(3).fill('')),
+    grid: Array(initialGridSize.rows).fill(null).map(() => Array(initialGridSize.cols).fill('')),
     spinsRemaining: initialSpins,
     coins: 0,
     luck: 0,
     symbolsMultiplier: 1,
     patternsMultiplier: 1,
-    isSpinning: false
+    isSpinning: false,
+    gridSize: initialGridSize,
+    availablePatterns: createPatternSystem(initialGridSize)
   });
 
 
   // Generate a new grid with symbols
-  const generateGrid = useCallback((luckBonus: number = 0): string[][] => {
+  const generateGrid = useCallback((luckBonus: number = 0, currentGridSize: GridSize = state.gridSize): string[][] => {
     console.log('🎰 SLOT MACHINE GRID GENERATION:');
     console.log('  Luck Bonus:', luckBonus);
+    console.log('  Grid Size:', currentGridSize);
     
-    const grid: string[][] = Array(3).fill(null).map(() => Array(3).fill(''));
+    const grid: string[][] = Array(currentGridSize.rows).fill(null).map(() => Array(currentGridSize.cols).fill(''));
     
     // Fill grid with random symbols
-    for (let row = 0; row < 3; row++) {
-      for (let col = 0; col < 3; col++) {
+    for (let row = 0; row < currentGridSize.rows; row++) {
+      for (let col = 0; col < currentGridSize.cols; col++) {
         grid[row][col] = getRandomSymbol().name;
       }
     }
@@ -92,10 +98,10 @@ export const useSlotMachine = (initialSpins: number = 5) => {
     setState(prev => ({ ...prev, isSpinning: true }));
 
     // Generate new grid
-    const newGrid = generateGrid(state.luck);
+    const newGrid = generateGrid(state.luck, state.gridSize);
     
-    // Find matching patterns
-    const matches = findMatchingPatterns(newGrid);
+    // Find matching patterns using dynamic patterns
+    const matches = findMatchingPatterns(newGrid, state.availablePatterns);
     console.log('  Found Matches:', matches);
     
     // Calculate total payout
@@ -197,6 +203,32 @@ export const useSlotMachine = (initialSpins: number = 5) => {
     return false;
   }, [state.coins]);
 
+  // Update grid size and regenerate patterns
+  const updateGridSize = useCallback((newGridSize: GridSize) => {
+    setState(prev => {
+      const newPatterns = createPatternSystem(newGridSize);
+      const newGrid = Array(newGridSize.rows).fill(null).map(() => Array(newGridSize.cols).fill(''));
+      
+      return {
+        ...prev,
+        gridSize: newGridSize,
+        availablePatterns: newPatterns,
+        grid: newGrid
+      };
+    });
+  }, [state.gridSize]);
+
+  // Update patterns for current grid size
+  const updatePatterns = useCallback(() => {
+    setState(prev => {
+      const newPatterns = createPatternSystem(prev.gridSize);
+      return {
+        ...prev,
+        availablePatterns: newPatterns
+      };
+    });
+  }, []);
+
   return {
     state,
     spin,
@@ -205,6 +237,8 @@ export const useSlotMachine = (initialSpins: number = 5) => {
     updateMultipliers,
     updateLuck,
     addCoins,
-    spendCoins
+    spendCoins,
+    updateGridSize,
+    updatePatterns
   };
 };

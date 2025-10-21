@@ -10,6 +10,7 @@ export interface Charm {
   maxUses?: number;
   description: string;
   tier: 'S' | 'A' | 'B' | 'C';
+  gridSizeModifier?: { rows: number; cols: number };
 }
 
 export const CHARMS: Charm[] = [
@@ -232,6 +233,63 @@ export const CHARMS: Charm[] = [
     maxUses: 1,
     description: 'One-use protection.',
     tier: 'C'
+  },
+
+  // Grid Size Modifying Charms
+  {
+    id: 'expansive_vision',
+    name: 'Expansive Vision',
+    cost: 3,
+    rarity: 'rare',
+    effect: '+1 row and +1 column to grid',
+    effectType: 'passive',
+    gridSizeModifier: { rows: 1, cols: 1 },
+    description: 'Permanently expands your grid size',
+    tier: 'A'
+  },
+  {
+    id: 'wide_screen',
+    name: 'Wide Screen',
+    cost: 2,
+    rarity: 'uncommon',
+    effect: '+3 columns to grid',
+    effectType: 'passive',
+    gridSizeModifier: { rows: 0, cols: 3 },
+    description: 'Makes your grid much wider',
+    tier: 'B'
+  },
+  {
+    id: 'tall_tower',
+    name: 'Tall Tower',
+    cost: 2,
+    rarity: 'uncommon',
+    effect: '+3 rows to grid',
+    effectType: 'passive',
+    gridSizeModifier: { rows: 3, cols: 0 },
+    description: 'Makes your grid much taller',
+    tier: 'B'
+  },
+  {
+    id: 'mini_grid',
+    name: 'Mini Grid',
+    cost: 1,
+    rarity: 'common',
+    effect: '-1 row and -1 column (risk/reward)',
+    effectType: 'passive',
+    gridSizeModifier: { rows: -1, cols: -1 },
+    description: 'Smaller grid = easier patterns but less potential',
+    tier: 'C'
+  },
+  {
+    id: 'temporary_expansion',
+    name: 'Temporary Expansion',
+    cost: 2,
+    rarity: 'uncommon',
+    effect: '+2 rows and +2 columns for 3 spins',
+    effectType: 'passive',
+    gridSizeModifier: { rows: 2, cols: 2 },
+    description: 'Temporary grid expansion',
+    tier: 'B'
   }
 ];
 
