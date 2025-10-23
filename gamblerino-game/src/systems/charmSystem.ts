@@ -2,7 +2,7 @@ import { Charm, getCharmById } from '../data/charms';
 import { random } from '../utils/random';
 
 export interface CharmEffect {
-  type: 'spins' | 'luck' | 'multiplier' | 'interest' | 'tickets' | 'trigger' | 'pattern_boost' | 'grid_size';
+  type: 'spins' | 'luck' | 'multiplier' | 'tickets' | 'trigger' | 'pattern_boost' | 'grid_size';
   value: number;
   condition?: string;
   probability?: number;
@@ -92,12 +92,6 @@ export class CharmSystem {
       case 'random_trigger':
         return this.getRandomTriggerEffect(charm, event);
       
-      case 'red_button':
-        return this.getRedButtonEffect(charm, event);
-      
-      case 'pattern_triggered':
-        return this.getPatternTriggeredEffect(charm, event);
-      
       default:
         return null;
     }
@@ -121,14 +115,6 @@ export class CharmSystem {
       return { type: 'spins', value: 2 };
     }
     
-    // Interest effects
-    if (effect.includes('+5% interest')) {
-      return { type: 'interest', value: 0.05 };
-    }
-    
-    if (effect.includes('+15% interest')) {
-      return { type: 'interest', value: 0.15 };
-    }
     
     // Luck effects
     if (effect.includes('+7 luck on final spin') && event === 'final_spin') {
@@ -184,52 +170,13 @@ export class CharmSystem {
 
   // Get red button effects
   private getRedButtonEffect(charm: Charm, event: string): CharmEffect | null {
-    if (event !== 'red_button') return null;
-    
-    const effect = charm.effect.toLowerCase();
-    
-    // Red Shiny Rock effect
-    if (effect.includes('+4 luck next spin')) {
-      return { type: 'luck', value: 4, condition: 'next_spin' };
-    }
-    
-    // Picture charms effects
-    if (effect.includes('+2') && effect.includes('manifestation')) {
-      const symbol = this.extractSymbolFromEffect(effect);
-      if (symbol) {
-        return { type: 'pattern_boost', value: 2, condition: symbol };
-      }
-    }
-    
+    // Red button functionality not implemented
     return null;
   }
 
   // Get pattern triggered effects
   private getPatternTriggeredEffect(charm: Charm, event: string): CharmEffect | null {
-    if (event !== 'pattern_match') return null;
-    
-    const effect = charm.effect.toLowerCase();
-    
-    // Stain effect
-    if (effect.includes('boosts all pattern values when 4+ symbols trigger')) {
-      return { type: 'pattern_boost', value: 1.5, condition: '4+_patterns' };
-    }
-    
-    // Shrooms effect
-    if (effect.includes('doubles all symbol values when 3+ patterns trigger')) {
-      return { type: 'multiplier', value: 2, condition: '3+_patterns' };
-    }
-    
-    // Lucky Cat effect
-    if (effect.includes('earn coins equal to current interest')) {
-      return { type: 'trigger', value: 1, condition: 'interest_payout' };
-    }
-    
-    // Pentacle effect
-    if (effect.includes('increases +1 when 5+ patterns trigger')) {
-      return { type: 'multiplier', value: 1, condition: '5+_patterns' };
-    }
-    
+    // No pattern triggered effects in simplified system
     return null;
   }
 
@@ -269,9 +216,6 @@ export class CharmSystem {
           }
           break;
         
-        case 'interest':
-          result.interestRate = (result.interestRate || 0.1) + effect.value;
-          break;
         
         case 'tickets':
           result.ticketChance = (result.ticketChance || 0) + effect.value;
@@ -282,12 +226,6 @@ export class CharmSystem {
           if (effect.condition === 'fake_coin') {
             result.spins = (result.spins || 0) + 1;
             result.luck = (result.luck || 0) + 4;
-          }
-          break;
-        
-        case 'pattern_boost':
-          if (effect.condition === '4+_patterns') {
-            result.patternMultiplier = (result.patternMultiplier || 1) * effect.value;
           }
           break;
         
